@@ -34,7 +34,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\Apps\Steam\steamapps\common\Starbound\win32\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -90,10 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bans.cs" />
+    <Compile Include="Claims.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Commands\AdminChat.cs" />
     <Compile Include="Commands\Broadcast.cs" />
     <Compile Include="Commands\Build.cs" />
+    <Compile Include="Commands\Claim.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\BanC.cs" />
     <Compile Include="Commands\GroupC.cs" />

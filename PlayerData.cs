@@ -51,6 +51,9 @@ namespace com.avilance.Starrybound
         public List<string> shipWhitelist = new List<string>();
         public List<string> shipBlacklist = new List<string>();
 
+        int _maxClaims = 1;
+        public int MaxClaims { get { return _maxClaims; } set { _maxClaims = value; } }
+
         public string formatName 
         {
             get 
@@ -106,6 +109,16 @@ namespace com.avilance.Starrybound
             }
             else if (!hasPermission("world.build")) return false;
             else if (!canBuild) return false;
+            if (this.hasPermission("admin.ignoreshipaccess")) return true; //Admins can ignore claims
+            var player = Claims.GetStakeOwner(loc);
+            if (player==this.name)
+                return true;
+            if (player!=null)
+            {
+                List<String> whiteList = StarryboundServer.getClientWhitelist(player);
+
+                if (!whiteList.Contains(this.name)) return false; //Players need to specificly whitelist players to ignore claims
+            }
             return true;
         }
 

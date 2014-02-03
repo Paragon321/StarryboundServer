@@ -108,6 +108,19 @@ namespace com.avilance.Starrybound.Permissions
             StarryboundServer.logWarn("************************************************************************");
         }
 
+        public static User GetUser(String name)
+        {
+            if (File.Exists(Path.Combine(UsersPath, name.ToLower()+".json")))
+            {
+                try
+                {
+                    User user = Read(Path.Combine(UsersPath, name.ToLower() + ".json"), new String[] { name, "" });
+                    return user;
+                } catch(Exception e){}
+            }
+            return null;
+        }
+
         public static User GetUser(string name, string uuid, string ip)
         {
             if (File.Exists(Path.Combine(UsersPath, name.ToLower() + ".json")))

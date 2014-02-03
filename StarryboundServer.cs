@@ -193,6 +193,7 @@ namespace com.avilance.Starrybound
                 sectors.Add(sectorBytes);
             }
             Bans.ProcessBans();
+            Claims.LoadClaims();
 
             logInfo("Starrybound Server initialization complete.");
 
@@ -457,6 +458,12 @@ namespace com.avilance.Starrybound
 
         public static void logException(string message) { writeLog(message, LogType.Exception); }
 
+        public static void logException(string message, params object[] args)
+        {
+            logException(String.Format(message, args));
+        }
+    
+
         public static void logFatal(string message) { writeLog(message, LogType.Fatal); }
 
         public static void writeLog(string message, LogType logType)
@@ -539,15 +546,30 @@ namespace com.avilance.Starrybound
             return result;
         }
 
-        public static Client getClient(string name)
+        static Dictionary<String, List<String>> _cachedWhiteLists = new Dictionary<string, List<string>>();
+        public static List<String> getClientWhitelist(string name)
+        {
+            Client result;
+            if (clients.TryGetValue(name, out result))
+                return result.playerData.shipWhitelist;
+            else
+            {
+                if (_cachedWhiteLists.ContainsKey(name)) return _cachedWhiteLists[name];
+                var usr = Users.GetUser(name);
+                if (usr == null) return null;
+                _cachedWhiteLists.Add(name,usr.shipWhitelist);
+                return usr.shipWhitelist;
+            }  
+            return null;
+        }
+
+        public static Client getClient(String name)
         {
             Client result;
             if (clients.TryGetValue(name, out result))
                 return result;
-            else
-                return null;
+            return null;
         }
-
         public static Client getClient(uint id)
         {
             Client result;

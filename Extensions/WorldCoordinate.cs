@@ -46,5 +46,22 @@ namespace com.avilance.Starrybound.Extensions
         {
             return this.ToString() == test.ToString();
         }
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+    }
+    public class WorldCoordEqualityComparer:IEqualityComparer<WorldCoordinate>
+    {
+
+        public bool Equals(WorldCoordinate x, WorldCoordinate y)
+        {
+            return x.Equals(y);
+        }
+
+        public int GetHashCode(WorldCoordinate obj)
+        {
+            return obj.GetHashCode();
+        }
     }
 }

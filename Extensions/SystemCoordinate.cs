@@ -40,5 +40,9 @@ namespace com.avilance.Starrybound.Extensions
         {
             return this.ToString() == test.ToString();
         }
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
     }
 }
